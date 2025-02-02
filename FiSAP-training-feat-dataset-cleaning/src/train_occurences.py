@@ -4,7 +4,7 @@ import torch.optim as optim
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, TensorDataset
-from .preprocess import preprocess_occurrence
+from preprocess import preprocess_occurrence
 import pandas as pd
 import numpy as np
 
@@ -38,7 +38,7 @@ def split_data(df, feature_columns):
 
 def train_occurrence():
     # Load dataset
-    df = pd.read_csv("data/merged_wildfire_data.csv")
+    df = pd.read_csv("../data/merged_wildfire_data.csv")
     df, feature_columns = preprocess_occurrence(df)
 
     X_train, X_test, y_train, y_test = split_data(df, feature_columns)
@@ -70,7 +70,7 @@ def train_occurrence():
             total_loss += loss.item()
         print(f"Epoch {epoch+1}, Loss: {total_loss / len(train_loader):.4f}")
 
-    torch.save(model.state_dict(), "models/wildfire_occurrence_lstm.pth")
+    torch.save(model.state_dict(), "../models/wildfire_occurrence_lstm.pth")
     print("Wildfire occurrence model saved.")
 
     model.eval()
@@ -88,3 +88,6 @@ def train_occurrence():
 
     print("LSTM Model Evaluation:")
     print(classification_report(true_labels, predictions))
+
+if __name__ == "__main__":
+    train_occurrence()

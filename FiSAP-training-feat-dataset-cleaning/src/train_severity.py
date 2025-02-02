@@ -111,7 +111,7 @@ def train_severity():
         # Early stopping and best model saving
         if avg_loss < best_loss:
             best_loss = avg_loss
-            torch.save(model.state_dict(), "../models/best_wildfire_severity_lstm.pth")
+            torch.save(model.state_dict(), "../models/best_wildfire_severity_lstm2.pth")
             print("Model improved and saved!")
 
     print("Final Model Training Complete.")
